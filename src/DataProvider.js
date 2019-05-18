@@ -15,6 +15,7 @@ class DataProvider extends Component {
         var dd = today.getDate();
         var mm = today.getMonth() + 1; //January is 0!
         var yyyy = today.getFullYear();
+        console.log(yyyy)
     
         if (dd < 10) {
           dd = '0' + dd
@@ -26,11 +27,13 @@ class DataProvider extends Component {
     
         today = yyyy + '-' + mm + '-' + dd;
 
-        axios.get(`https://www.balldontlie.io/api/v1/games?per_page=100&season[]=2019&start_date=${today}`).then(res => {
+        axios.get(`https://www.balldontlie.io/api/v1/games?per_page=100&season[]=${yyyy}&start_date=${today}`).then(res => {
             this.setState({
                 data: res.data.data
             })
-        })
+        }).catch(function (error) { 
+            window.location.reload() 
+        });
     }
 
     render() {
